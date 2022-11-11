@@ -1,0 +1,17 @@
+Il programma si occupa di allocare sz e di stampare il contenuto delle celle di memoria contigue al blocco nello heap.
+Per fare ciò, si prende in considerazione il range min-max, che corrisponde alla posizione dello heap, e quindi alle celle di array, dentro cui stampare.
+sz, min e max possono essere inseriti da input con l'ausilio del parametro del main "argv", ma in assenza di un aggiunta ad input le 3 variabili
+assumono il valore segnato all'inizio del main (sz = 1, min = -16 e max = 60).
+Si parte usando la funzione malloc, che si occupa di allocare dinamicamente nello heap la variabile sz: per accedere a questo blocco di memoria si 
+fa uso del puntatore restituito dalla funzione.
+Se malloc ritorna un puntatore vuoto vuol dire che la chiamata alla funzione non è andata a buon fine e si termina il programma.
+Se invece restituisce un puntatore non vuoto, si procede con la stampa del contenuto di ogni cella di memoria, che viene rappresentato da un numero
+uguale o diverso da 0.
+Dopodichè, si utilizza realloc per ridimensionare l'array: la funzione restituisce un puntatore che contiene i dati dell'area precedentemente allocata
+e ora ridimensionata.
+Se realloc non va a buon fine, alloca un'area di dimensioni uguali alla precedente, contenente gli stessi dati; si richiama poi free che si occupa
+di deallocare la memoria allocata del puntatore precedente.
+Se la realloc va a buon fine, si procede a ristampare: si osserva che a seguito della chiamata alla funzione, le celle di memoria adiacenti a quelle
+allocate possono variare il proprio contenuto.
+Questa variazione avviene quando le celle successive a quelle di partenza sono già state allocate, quindi si cerca di occupare pagine libere consecutive,
+con relativo spostamento di una parte di heap.
